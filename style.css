@@ -53,13 +53,16 @@ body {
     z-index: 4;
 }
 
-/* Лист всередині */
+/* Лист всередині — робимо його гнучким */
 .letter {
     position: absolute;
     bottom: 0;
-    left: 15px;
-    width: 270px;
-    height: 170px;
+    left: 10px;
+    width: 280px;
+    /* Мінімальна висота, щоб він не був замалим, 
+       але прибираємо жорстке обмеження */
+    min-height: 180px; 
+    height: auto; 
     background: white;
     padding: 20px;
     box-sizing: border-box;
@@ -67,10 +70,35 @@ body {
     transition: transform 0.6s ease;
     z-index: 2;
     border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    
+    /* Додаємо ці властивості для роботи з текстом */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    word-wrap: break-word; /* Переносити довгі слова */
+    overflow-wrap: break-word;
 }
 
-.letter h1 { color: #ad1457; font-size: 20px; margin: 5px 0; }
-.letter p { color: #555; font-size: 14px; margin: 0; }
+.letter h1 { 
+    color: #ad1457; 
+    font-size: 18px; /* Трішки зменшили, щоб було більше місця */
+    margin: 5px 0 10px 0;
+    line-height: 1.2;
+}
+
+.letter p { 
+    color: #555; 
+    font-size: 14px; 
+    margin: 0; 
+    line-height: 1.4; /* Додали міжрядковий інтервал для читабельності */
+}
+
+/* Анімація відкриття — піднімаємо трохи вище, якщо текст довгий */
+.open .letter {
+    transform: translateY(-150px); /* Збільшили з -130px до -150px */
+    z-index: 6;
+}
 
 /* Анімація відкриття */
 .open .flap {
