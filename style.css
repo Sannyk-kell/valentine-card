@@ -9,11 +9,13 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
+/* 1. Збільшуємо загальний контейнер */
 .envelope-wrapper {
     position: relative;
-    width: 450px; /* Було 300px */
-    height: 300px; /* Було 200px */
+    width: 450px;
+    height: 350px; /* Збільшили висоту з 300 до 350 */
     z-index: 10;
+    transition: transform 0.3s;
 }
 
 .envelope {
@@ -26,21 +28,21 @@ body {
     cursor: pointer;
 }
 
-/* Верхній клапан — пропорційно збільшено */
+/* 2. Коригуємо верхній клапан */
 .flap {
     position: absolute;
     top: 0;
     width: 0;
     height: 0;
-    border-left: 225px solid transparent; /* Половина нової ширини */
+    border-left: 225px solid transparent;
     border-right: 225px solid transparent;
-    border-top: 160px solid #ff4081; /* Збільшено висоту згину */
+    border-top: 180px solid #ff4081; /* Трохи довший клапан */
     transform-origin: top;
-    transition: transform 0.4s ease;
+    transition: transform 0.5s ease;
     z-index: 5;
 }
 
-/* Передня частина (кишенька) — пропорційно збільшено */
+/* 3. Коригуємо передню частину (кишеньку), щоб вона була вищою */
 .front {
     position: absolute;
     bottom: 0;
@@ -48,27 +50,27 @@ body {
     height: 0;
     border-left: 225px solid #f48fb1;
     border-right: 225px solid #f48fb1;
-    border-bottom: 150px solid #f8bbd0;
-    border-top: 150px solid transparent;
-    z-index: 4;
+    border-bottom: 175px solid #f8bbd0; /* Збільшили глибину кишеньки */
+    border-top: 175px solid transparent;
+    z-index: 4; /* Тепер вона надійно ховає лист всередині */
 }
 
-/* Лист — тепер він повністю ховається за передню стінку */
+/* 4. Налаштування листа */
 .letter {
     position: absolute;
-    bottom: 5px; /* Трохи підняли від самого дна */
-    left: 20px;
-    width: 410px;
-    min-height: 250px;
+    bottom: 10px; /* Лист стоїть на дні всередині */
+    left: 25px;
+    width: 400px;
+    min-height: 280px; /* Достатньо місця для твого великого тексту */
     height: auto;
     background: white;
     padding: 30px;
     box-sizing: border-box;
     text-align: center;
-    transition: transform 0.6s ease, z-index 0.1s; /* Додали перемикання шарів */
-    z-index: 2; /* Ховається за клапанами та передньою стінкою */
+    transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 2; /* Ховається за кишенькою */
     border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     
     display: flex;
     flex-direction: column;
@@ -76,46 +78,22 @@ body {
     word-wrap: break-word;
 }
 
-.letter h1 { 
-    color: #ad1457; 
-    font-size: 24px; 
-    margin: 0 0 15px 0; 
-}
+.letter h1 { color: #ad1457; font-size: 22px; margin-bottom: 15px; }
+.letter p { color: #555; font-size: 15px; line-height: 1.4; margin: 0; }
 
-.letter p { 
-    color: #555; 
-    font-size: 16px; 
-    line-height: 1.5; 
-}
-
-/* МАГІЯ ВІДКРИТТЯ */
-.open .letter {
-    /* Піднімаємо лист вище, щоб він не торкався конверта */
-    transform: translateY(-220px); 
-    /* Робимо його поверх усіх частин конверта */
-    z-index: 20; 
-}
-
+/* 5. Виправлена анімація відкриття */
 .open .flap {
     transform: rotateX(180deg);
-    /* Коли конверт відкритий, клапан має бути за листом */
-    z-index: 1; 
+    z-index: 1;
 }
 
-/* Передню частину (кишеньку) робимо вище за закритий лист, але нижче за відкритий */
-.front {
-    position: absolute;
-    bottom: 0;
-    width: 0;
-    height: 0;
-    border-left: 225px solid #f48fb1;
-    border-right: 225px solid #f48fb1;
-    border-bottom: 150px solid #f8bbd0;
-    border-top: 150px solid transparent;
-    z-index: 10; /* Це перекриває лист, поки він не виїхав */
+.open .letter {
+    /* Піднімаємо так, щоб низ листа не виходив за межі конверта зверху */
+    transform: translateY(-160px); 
+    z-index: 6; /* Виїжджає ПОВЕРХ кишеньки */
 }
 
-/* --- Інші стилі залишаємо без змін --- */
+/* --- Інші анімації (сердечка) залишаємо без змін --- */
 
 .bg-heart {
     position: absolute;
