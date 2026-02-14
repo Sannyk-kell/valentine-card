@@ -53,53 +53,66 @@ body {
     z-index: 4;
 }
 
-/* Лист всередині — тепер більший і вміщує більше тексту */
+/* Лист — тепер він повністю ховається за передню стінку */
 .letter {
     position: absolute;
-    bottom: 0;
+    bottom: 5px; /* Трохи підняли від самого дна */
     left: 20px;
-    width: 410px; /* Ширина конверта мінус відступи */
-    min-height: 250px; 
-    height: auto; 
+    width: 410px;
+    min-height: 250px;
+    height: auto;
     background: white;
     padding: 30px;
     box-sizing: border-box;
     text-align: center;
-    transition: transform 0.6s ease;
-    z-index: 2;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    transition: transform 0.6s ease, z-index 0.1s; /* Додали перемикання шарів */
+    z-index: 2; /* Ховається за клапанами та передньою стінкою */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
     
     display: flex;
     flex-direction: column;
     justify-content: center;
     word-wrap: break-word;
-    overflow-wrap: break-word;
 }
 
 .letter h1 { 
     color: #ad1457; 
-    font-size: 24px; /* Збільшили заголовок */
-    margin: 0 0 15px 0;
-    line-height: 1.2;
+    font-size: 24px; 
+    margin: 0 0 15px 0; 
 }
 
 .letter p { 
     color: #555; 
-    font-size: 18px; /* Збільшили текст для зручності */
-    margin: 0; 
-    line-height: 1.5;
+    font-size: 16px; 
+    line-height: 1.5; 
 }
 
-/* Анімація відкриття — лист виїжджає вище, бо він став більшим */
+/* МАГІЯ ВІДКРИТТЯ */
 .open .letter {
-    transform: translateY(-180px); 
-    z-index: 6;
+    /* Піднімаємо лист вище, щоб він не торкався конверта */
+    transform: translateY(-220px); 
+    /* Робимо його поверх усіх частин конверта */
+    z-index: 20; 
 }
 
 .open .flap {
     transform: rotateX(180deg);
-    z-index: 1;
+    /* Коли конверт відкритий, клапан має бути за листом */
+    z-index: 1; 
+}
+
+/* Передню частину (кишеньку) робимо вище за закритий лист, але нижче за відкритий */
+.front {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 225px solid #f48fb1;
+    border-right: 225px solid #f48fb1;
+    border-bottom: 150px solid #f8bbd0;
+    border-top: 150px solid transparent;
+    z-index: 10; /* Це перекриває лист, поки він не виїхав */
 }
 
 /* --- Інші стилі залишаємо без змін --- */
