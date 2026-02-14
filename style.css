@@ -11,8 +11,8 @@ body {
 
 .envelope-wrapper {
     position: relative;
-    width: 300px;
-    height: 200px;
+    width: 450px; /* Було 300px */
+    height: 300px; /* Було 200px */
     z-index: 10;
 }
 
@@ -26,45 +26,43 @@ body {
     cursor: pointer;
 }
 
-/* Верхній клапан */
+/* Верхній клапан — пропорційно збільшено */
 .flap {
     position: absolute;
     top: 0;
     width: 0;
     height: 0;
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
-    border-top: 110px solid #ff4081;
+    border-left: 225px solid transparent; /* Половина нової ширини */
+    border-right: 225px solid transparent;
+    border-top: 160px solid #ff4081; /* Збільшено висоту згину */
     transform-origin: top;
     transition: transform 0.4s ease;
     z-index: 5;
 }
 
-/* Передня частина (кишенька) */
+/* Передня частина (кишенька) — пропорційно збільшено */
 .front {
     position: absolute;
     bottom: 0;
     width: 0;
     height: 0;
-    border-left: 150px solid #f48fb1;
-    border-right: 150px solid #f48fb1;
-    border-bottom: 100px solid #f8bbd0;
-    border-top: 100px solid transparent;
+    border-left: 225px solid #f48fb1;
+    border-right: 225px solid #f48fb1;
+    border-bottom: 150px solid #f8bbd0;
+    border-top: 150px solid transparent;
     z-index: 4;
 }
 
-/* Лист всередині — робимо його гнучким */
+/* Лист всередині — тепер більший і вміщує більше тексту */
 .letter {
     position: absolute;
     bottom: 0;
-    left: 10px;
-    width: 280px;
-    /* Мінімальна висота, щоб він не був замалим, 
-       але прибираємо жорстке обмеження */
-    min-height: 180px; 
+    left: 20px;
+    width: 410px; /* Ширина конверта мінус відступи */
+    min-height: 250px; 
     height: auto; 
     background: white;
-    padding: 20px;
+    padding: 30px;
     box-sizing: border-box;
     text-align: center;
     transition: transform 0.6s ease;
@@ -72,46 +70,40 @@ body {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     
-    /* Додаємо ці властивості для роботи з текстом */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    word-wrap: break-word; /* Переносити довгі слова */
+    word-wrap: break-word;
     overflow-wrap: break-word;
 }
 
 .letter h1 { 
     color: #ad1457; 
-    font-size: 18px; /* Трішки зменшили, щоб було більше місця */
-    margin: 5px 0 10px 0;
+    font-size: 24px; /* Збільшили заголовок */
+    margin: 0 0 15px 0;
     line-height: 1.2;
 }
 
 .letter p { 
     color: #555; 
-    font-size: 14px; 
+    font-size: 18px; /* Збільшили текст для зручності */
     margin: 0; 
-    line-height: 1.4; /* Додали міжрядковий інтервал для читабельності */
+    line-height: 1.5;
 }
 
-/* Анімація відкриття — піднімаємо трохи вище, якщо текст довгий */
+/* Анімація відкриття — лист виїжджає вище, бо він став більшим */
 .open .letter {
-    transform: translateY(-150px); /* Збільшили з -130px до -150px */
+    transform: translateY(-180px); 
     z-index: 6;
 }
 
-/* Анімація відкриття */
 .open .flap {
     transform: rotateX(180deg);
     z-index: 1;
 }
 
-.open .letter {
-    transform: translateY(-130px);
-    z-index: 6;
-}
+/* --- Інші стилі залишаємо без змін --- */
 
-/* Стилі для фонових сердечок */
 .bg-heart {
     position: absolute;
     bottom: -50px;
@@ -126,7 +118,6 @@ body {
     100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
 }
 
-/* Стилі для вибуху сердечок */
 .exploding-heart {
     position: fixed;
     pointer-events: none;
